@@ -17,6 +17,6 @@ LaptopPrices = Base.classes.laptop_prices
 session = Session(engine)
 
 laptops = session.query(LaptopPrices).all()
-for laptop in laptops:
-    print(laptop.__dict__)
+for laptop in laptops[:10]:
+    print(f"{laptop.laptop_ID}  {laptop.Company}")
 session.close()

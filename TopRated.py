@@ -25,4 +25,7 @@ for movie in results:
     }
 #print(movie_rate)
 movie_rate_df = pd.DataFrame.from_dict(movie_rate, orient='index')
+movie_rate_df = movie_rate_df.rename_axis('id')
+movie_rate_df = movie_rate_df.reset_index()
+movie_rate_df.to_csv("top_rated_movies.csv", index=False)
 print(movie_rate_df.head())

@@ -44,14 +44,14 @@ for movie_id in topRated_moviesID:
         "rating":rating,
         "description":description,
         "release_date":release_date,
-        "language":language,
+        "language_iso_639_1":language,
         "popularity":popularity,
         "revenue":revenue,
         "runtime":runtime,
         "adult":adult
     }
 movie_rate_df = pd.DataFrame.from_dict(topRated_moviesData, orient='index')
-movie_rate_df = movie_rate_df.rename_axis('id')
+movie_rate_df = movie_rate_df.rename_axis('film_id')
 movie_rate_df = movie_rate_df.reset_index()
 movie_rate_df.to_csv("top_rated_movies.csv", index=False)
 print(movie_rate_df.head())

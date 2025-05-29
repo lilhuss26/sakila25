@@ -2,3 +2,5 @@
 USE sakila;
 
 SELECT * from film ;
+
+SELECT * FROM language;

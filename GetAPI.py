@@ -19,7 +19,6 @@ def topRated_movies():
         for movie in results:
             film_id = movie["id"]
             topRated_moviesID.append(film_id)
-    print(topRated_moviesID)
 
     topRated_moviesData = {}
     for movie_id in topRated_moviesID:
@@ -50,7 +49,7 @@ def topRated_movies():
             "runtime":runtime,
             "adult":adult
         }
-        return topRated_moviesData
+    return topRated_moviesData
 
 def langs():
     target_langs = ['en', 'ja', 'hi', 'ko', 'it', 'pt', 'es', 'zh', 'fr', 'tr', 'ru']
@@ -77,7 +76,7 @@ def film_actor2():
             film_id = movie["id"]
             topRated_moviesID.append(film_id)
 
-    film_actor = {}
+    film_actor = []
     actor = {}
     for movie_id in topRated_moviesID:
 
@@ -96,11 +95,13 @@ def film_actor2():
             "first_name" : first_name,
             "last_name" : last_name
         }
-        film_actor[main_actor_id] = {
+        film_actor.append({
+            "actor_id": main_actor_id,
             "film_id": movie_id,
-            "character": main_actor['character']
-        }
-        return film_actor,actor
+            "character": character
+        })
+        
+    return actor, film_actor
     
 def genres():
     genres_id = [35, 18, 80, 12, 16, 28, 37, 14, 27, 53, 10752, 10751, 10749, 10402]
@@ -109,7 +110,6 @@ def genres():
     genrs = requests.get(url=genrsURL)
     genrs_data = genrs.json()
     
-    # Return as dictionary {id: name}
     return {genre['id']: genre['name'] for genre in genrs_data['genres'] if genre['id'] in genres_id}
 
 def filmGenre():
@@ -134,4 +134,4 @@ def filmGenre():
         genre = movie_details_data["genres"][0]["id"]
         film_category[film_id] = {
             "category_id":genre }
-        return film_category
+    return film_category

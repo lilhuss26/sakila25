@@ -6,3 +6,6 @@ SELECT * from film ;
 SELECT * FROM language;
 
 SELECT * FROM category;
+
+SELECT * from actor;
+Select * from film_actor;

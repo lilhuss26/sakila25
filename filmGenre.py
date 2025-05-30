@@ -19,7 +19,6 @@ for i in range(1,6):
     for movie in results:
         film_id = movie["id"]
         topRated_moviesID.append(film_id)
-print(topRated_moviesID)
 
 topRated_moviesData = {}
 for movie_id in topRated_moviesID:
@@ -29,29 +28,11 @@ for movie_id in topRated_moviesID:
     movie_details_data = movie_details.json()
 
     film_id = movie_id
-    title = movie_details_data["title"]
-    description = movie_details_data["overview"]
-    release_date = movie_details_data["release_date"]
-    language = movie_details_data["original_language"]
-    popularity = movie_details_data["popularity"]
-    revenue = movie_details_data["revenue"]
-    runtime = movie_details_data["runtime"]
-    rating = movie_details_data["vote_average"]
-    adult = movie_details_data["adult"]
-
+    genre = movie_details_data["genres"][0]["id"]
     topRated_moviesData[film_id] = {
-        "title":title,
-        "rating":rating,
-        "description":description,
-        "release_date":release_date,
-        "language_iso_639_1":language,
-        "popularity":popularity,
-        "revenue":revenue,
-        "runtime":runtime,
-        "adult":adult
-    }
+        "category_id":genre }
 movie_rate_df = pd.DataFrame.from_dict(topRated_moviesData, orient='index')
 movie_rate_df = movie_rate_df.rename_axis('film_id')
 movie_rate_df = movie_rate_df.reset_index()
-movie_rate_df.to_csv("Sakila_csv/top_rated_movies.csv", index=False)
+movie_rate_df.to_csv("Sakila_csv/film_category.csv", index=False)
 print(movie_rate_df.head())

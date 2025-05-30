@@ -1,3 +1,3 @@
 import pandas as pd 
-df = pd.read_csv('top_rated_movies.csv')
-print(df['language'].unique())
+df = pd.read_csv('Sakila_csv/film_category.csv')
+print(df['category_id'].unique())

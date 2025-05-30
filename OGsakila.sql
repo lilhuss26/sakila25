@@ -4,3 +4,5 @@ USE sakila;
 SELECT * from film ;
 
 SELECT * FROM language;
+
+SELECT * FROM category;

@@ -58,9 +58,12 @@ def langs():
     langs = requests.get(url=langURL)
     langs_data = langs.json()
     
-    # Create dictionary with iso_639_1 as keys and full language info as values
     return {
-        lang['iso_639_1']: lang 
+        lang['iso_639_1']: {
+            'language_iso_639_1': lang['iso_639_1'],
+            'english_name': lang['english_name'],
+            'name': lang['name']
+        }
         for lang in langs_data 
         if lang['iso_639_1'] in target_langs
     }
@@ -109,8 +112,7 @@ def genres():
     genrsURL = f"https://api.themoviedb.org/3/genre/movie/list?language=en&api_key={TMDB_API_KEY}"
     genrs = requests.get(url=genrsURL)
     genrs_data = genrs.json()
-    
-    return {genre['id']: genre['name'] for genre in genrs_data['genres'] if genre['id'] in genres_id}
+    return {genre['id']: {'category_id': genre['id'], 'name': genre['name']} for genre in genrs_data['genres'] if genre['id'] in genres_id}
 
 def filmGenre():
     topRated_moviesID = []

@@ -137,3 +137,56 @@ def filmGenre():
         film_category[film_id] = {
             "category_id":genre }
     return film_category
+
+def inventory_providers():        
+    topRated_moviesID = []
+    for i in range(1, 6):
+        top_ratedURL = f"https://api.themoviedb.org/3/movie/top_rated?api_key={TMDB_API_KEY}&page={i}&language=en-US"
+        topRated = requests.get(url=top_ratedURL)
+        topRated_data = topRated.json()
+        results = topRated_data.get("results", [])
+        for movie in results:
+            film_id = movie["id"]
+            topRated_moviesID.append(film_id)
+
+    inventory = {}
+    providers = {}
+    country_code = "US"
+
+    for movie_id in topRated_moviesID:
+        movie_providersURL = f"https://api.themoviedb.org/3/movie/{movie_id}/watch/providers?api_key={TMDB_API_KEY}&language=en-US"
+        movie_providers = requests.get(url=movie_providersURL)
+        movie_providers_data = movie_providers.json()
+
+        country_data = movie_providers_data.get("results", {}).get(country_code)
+        if not country_data:
+            continue
+
+        unique_providers_for_movie = set()  
+        provider_entries = []
+
+        for provider_type in ["flatrate", "rent", "buy"]:
+            providers_list = country_data.get(provider_type, [])
+            if providers_list:
+                    first_provider = providers_list[0]
+                    provider_id = first_provider["provider_id"]
+                    provider_name = first_provider["provider_name"]
+
+                    if provider_id not in unique_providers_for_movie:
+                        unique_providers_for_movie.add(provider_id)
+                        provider_entries.append({
+                            "provider_id": provider_id,
+                            "type": provider_type  
+                        })
+
+                    if provider_id not in providers:
+                        providers[provider_id] = {
+                            "provider_name": provider_name,
+                            "country": country_code,
+                            "type": provider_type  
+                        }
+
+        if provider_entries:
+            inventory[movie_id] = [{"provider_id": entry["provider_id"]} for entry in provider_entries]
+
+    return inventory, providers

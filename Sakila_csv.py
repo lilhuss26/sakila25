@@ -33,3 +33,20 @@ film_category_df = pd.DataFrame.from_dict(film_category, orient='index')
 film_category_df = film_category_df.rename_axis('film_id')
 film_category_df = film_category_df.reset_index()
 film_category_df.to_csv("Sakila_csv/film_category.csv", index=False)
+
+inventory, providers = inventory_providers()
+
+inventory_records = []
+for movie_id, provider_list in inventory.items():
+    for provider in provider_list:
+        inventory_records.append({
+            "film_id": movie_id,
+            "provider_id": provider["provider_id"]
+        })
+
+inventory_df = pd.DataFrame(inventory_records)
+providers_df = pd.DataFrame.from_dict(providers, orient='index').reset_index()
+providers_df = providers_df.rename(columns={'index': 'provider_id'})
+
+inventory_df.to_csv("Sakila_csv/inventory.csv", index=False)
+providers_df.to_csv("Sakila_csv/providers.csv", index=False)

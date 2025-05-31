@@ -1,6 +1,6 @@
 import os
 from GetAPI import *
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, Index
 from dotenv import load_dotenv
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
@@ -35,6 +35,12 @@ class Film(Base):
     revenue = Column(BigInteger)
     runtime = Column(SmallInteger)
     adult = Column(Boolean)
+
+    __table_args__ = (
+        Index('idx_title', 'title'), 
+        Index('idx_fk_language_id', 'language_iso_639_1'),  
+    )
+
     
 class Category(Base):
     __tablename__ = 'category'
@@ -47,6 +53,12 @@ class FilmCategory(Base):
     film_id = Column(Integer, ForeignKey('film.film_id'), primary_key=True)
     category_id = Column(Integer, ForeignKey('category.category_id'), primary_key=True)
 
+    __table_args__ = (
+        Index('idx_fk_film_id', 'film_id'),  
+        Index('idx_fk_category_id', 'category_id'),  
+    )
+
+
 class Language(Base):
     __tablename__ = 'language'
     language_iso_639_1 = Column(VARCHAR(3),primary_key=True)
@@ -58,12 +70,20 @@ class Actor(Base):
     actor_id = Column(Integer,primary_key=True)
     first_name = Column(VARCHAR(45))
     last_name = Column(VARCHAR(45))
-    
+
+    __table_args__ = (
+        Index('idx_actor_last_name', 'last_name'),  
+    )
+
 class FilmActor(Base):
     __tablename__ = 'film_actor'
     actor_id = Column(Integer,ForeignKey('actor.actor_id'), primary_key=True)
     film_id = Column(Integer, ForeignKey('film.film_id'), primary_key=True)
     character = Column(TEXT)
+    __table_args__ = (
+        Index('idx_fk_film_id', 'film_id'),  
+        Index('idx_fk_actor_id', 'actor_id'),  
+    )
 
 Base.metadata.create_all(sakila25_engine)
 session = Session(sakila25_engine)

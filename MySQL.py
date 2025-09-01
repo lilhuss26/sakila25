@@ -31,7 +31,7 @@ class Film(Base):
     description = Column(TEXT)
     release_date = Column(DateTime)
     language_iso_639_1 = Column(VARCHAR(3), ForeignKey('language.language_iso_639_1'))
-    popularity = Column(DECIMAL(6,4))
+    popularity = Column(DECIMAL(8,4))
     revenue = Column(BigInteger)
     runtime = Column(SmallInteger)
     adult = Column(Boolean)

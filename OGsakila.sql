@@ -1,7 +1,7 @@
--- Active: 1741719431166@@127.0.0.1@3306@sakila
+-- Active: 1756744730083@@127.0.0.1@3306@sakila25
 DROP DATABASE sakila25;
 
-USE sakila;
+USE sakila25;
 
 SELECT * from film ;
 

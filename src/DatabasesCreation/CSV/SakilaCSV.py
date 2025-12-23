@@ -5,7 +5,7 @@ class SakilaCSV:
     def __init__(self):
         self.all_data = fetcher.fetch_all()
         self.dir = DIR
-    def main(self):
+    def create(self):
         films = self.all_data["films"]
         actor = self.all_data["actors"]
         film_actor = self.all_data["film_actors"]
@@ -23,3 +23,4 @@ class SakilaCSV:
         csv_inventory(inventory, self.dir)
         csv_providers(providers, self.dir)
         csv_language(language, self.dir)
+        return True

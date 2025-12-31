@@ -132,5 +132,6 @@ class Customer(Base):
     last_update = Column(DateTime, default=datetime.now, onupdate=datetime.now, nullable=False)
     provider_id = Column(Integer, ForeignKey('provider.provider_id'))
     date_of_birth = Column(DateTime)
+    gender = Column(VARCHAR(10))
 
 Base.metadata.create_all(sakila25_engine)

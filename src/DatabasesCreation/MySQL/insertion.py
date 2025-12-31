@@ -103,7 +103,8 @@ def mysql_insert_users_data(countries_data, cities_data, addresses_data, custome
             active=True,
             create_date=cust['create_date'],
             provider_id=random.choice(provider_ids) if provider_ids else None,
-            date_of_birth=cust['date_of_birth']
+            date_of_birth=cust['date_of_birth'],
+            gender=cust['gender']
         )
         session.add(customer)
     

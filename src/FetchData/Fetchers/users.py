@@ -38,7 +38,8 @@ def fetch_users():
             'create_date': datetime.fromisoformat(user['registered']['date'].replace('Z', '+00:00')),
             'date_of_birth': datetime.fromisoformat(user['dob']['date'].replace('Z', '+00:00')),
             'address': address_str,
-            'postal_code': str(user['location']['postcode'])
+            'postal_code': str(user['location']['postcode']),
+            'gender': user['gender']
         })
     
     print("users_data fetched successfully")

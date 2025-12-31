@@ -14,6 +14,10 @@ class SakilaMysql:
         providers = self.all_data["providers"]
         categories =self.all_data["categories"]
         language = self.all_data["languages"]
+        countries = self.all_data["countries"]
+        cities = self.all_data["cities"]
+        addresses = self.all_data["addresses"]
+        customers = self.all_data["customers"]
 
         mysql_insert_langs(language_data=language)
         mysql_insert_category(category_data=categories)
@@ -24,4 +28,9 @@ class SakilaMysql:
         mysql_insert_inventory(inventory_data=inventory)
         mysql_insert_film_category(film_category_data=film_category)
         mysql_insert_film_actor(film_actor_data=film_actor)
+
+        mysql_insert_users_data(countries_data=countries, 
+                              cities_data=cities, 
+                              addresses_data=addresses, 
+                              customers_data=customers)
         return True

@@ -5,6 +5,8 @@ from src.FetchData.Fetchers.film_actor import film_actor
 from src.FetchData.Fetchers.film_category import film_category
 from src.FetchData.Fetchers.inventory_providers import inventory_providers
 from src.FetchData.Fetchers.categories import categories
+from src.FetchData.Fetchers.users import fetch_users
+
 class FetchData:
     def __init__(self, pages: int = 6):
         self.api_key = TMDB_API_KEY
@@ -17,6 +19,7 @@ class FetchData:
         inventory, providers = inventory_providers(key=self.api_key, pages=self.pages)
         categories_data = categories(key=self.api_key)
         language_data = langs(key=self.api_key)
+        countries, cities, addresses, customers = fetch_users()
         return {
             "films": films_data,
             "actors": actors,
@@ -25,5 +28,9 @@ class FetchData:
             "inventory": inventory,
             "providers": providers,
             "categories": categories_data,
-            "languages": language_data
+            "languages": language_data,
+            "countries": countries,
+            "cities": cities,
+            "addresses": addresses,
+            "customers": customers
         }

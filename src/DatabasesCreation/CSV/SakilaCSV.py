@@ -1,5 +1,5 @@
 from src.DatabasesCreation.CSV.configuration import DIR, fetcher
-from src.DatabasesCreation.CSV.Insertion import *
+from src.DatabasesCreation.CSV.insertion import *
 
 class SakilaCSV:
     def __init__(self):

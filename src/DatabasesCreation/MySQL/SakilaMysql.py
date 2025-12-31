@@ -18,6 +18,7 @@ class SakilaMysql:
         cities = self.all_data["cities"]
         addresses = self.all_data["addresses"]
         customers = self.all_data["customers"]
+        cards_data = self.all_data["cards"]
 
         mysql_insert_langs(language_data=language)
         mysql_insert_category(category_data=categories)
@@ -33,4 +34,6 @@ class SakilaMysql:
                               cities_data=cities, 
                               addresses_data=addresses, 
                               customers_data=customers)
+        
+        mysql_insert_cards(cards_data=cards_data)
         return True

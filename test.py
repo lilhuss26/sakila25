@@ -1,5 +1,3 @@
 import requests
 
-url = "https://random-data-api.com/api//random_"
-response = requests.get(url)
-print(response.json())
+# Use realistic pricing models (e.g., $3.99 for rentals, $12.99 for subscriptions)

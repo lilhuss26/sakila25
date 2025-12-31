@@ -1,6 +1,6 @@
 from sqlalchemy import Index
 from sqlalchemy import (SmallInteger,Boolean, DateTime,TEXT,
-                        Column, DECIMAL,VARCHAR, Integer, String, ForeignKey, BigInteger, DateTime)
+                        Column, DECIMAL,VARCHAR, Integer, CHAR, ForeignKey, BigInteger, DateTime)
 from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
 from sqlalchemy.dialects.mysql import TINYINT
@@ -134,4 +134,34 @@ class Customer(Base):
     date_of_birth = Column(DateTime)
     gender = Column(VARCHAR(10))
 
+class Cards(Base):
+    __tablename__ = 'cards'
+    card_id = Column(Integer, primary_key=True, autoincrement=True)
+    owner_id = Column(VARCHAR(36), ForeignKey('customer.customer_id'))
+    card_number = Column(VARCHAR(255))
+    card_type = Column(VARCHAR(255))
+    card_expiry_date = Column(CHAR(5))
+    last_update = Column(DateTime, default=datetime.now, onupdate=datetime.now, nullable=False)
+
+class Subscription(Base):
+    __tablename__ = 'subscription'
+    subscription_id = Column(Integer, primary_key=True, autoincrement=True)
+    customer_id = Column(VARCHAR(36), ForeignKey('customer.customer_id'))
+    inventory_id = Column(Integer, ForeignKey('inventory.inventory_id'))
+    type = Column(VARCHAR(255))
+    start_date = Column(DateTime)
+    end_date = Column(DateTime)
+    last_update = Column(DateTime, default=datetime.now, onupdate=datetime.now, nullable=False)
+
+class Payment(Base):
+    __tablename__ = 'payment'
+    payment_id = Column(Integer, primary_key=True, autoincrement=True)
+    customer_id = Column(VARCHAR(36), ForeignKey('customer.customer_id'))
+    subscription_id = Column(Integer, ForeignKey('subscription.subscription_id'))
+    card_id = Column(Integer, ForeignKey('cards.card_id'))
+    amount = Column(DECIMAL(10, 2))
+    payment_date = Column(DateTime)
+    last_update = Column(DateTime, default=datetime.now, onupdate=datetime.now, nullable=False)
+
 Base.metadata.create_all(sakila25_engine)
+

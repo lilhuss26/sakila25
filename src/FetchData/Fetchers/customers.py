@@ -1,8 +1,8 @@
 import requests
 from datetime import datetime
 
-def fetch_users():
-    base_url = "https://randomuser.me/api/?results=100&nat=us,au,br,ca,fr,gb"
+def fetch_users(quantity: int = 100):
+    base_url = f"https://randomuser.me/api/?results={quantity}&nat=us,au,br,ca,fr,gb"
     response = requests.get(base_url)
     users_data = response.json()['results']
     

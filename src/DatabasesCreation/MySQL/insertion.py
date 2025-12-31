@@ -1,7 +1,7 @@
 from src.DatabasesCreation.MySQL.configuration import sakila25_engine
 from sqlalchemy.orm import Session
 session = Session(sakila25_engine)
-from src.DatabasesCreation.MySQL.schema import Language,Film,Category,FilmCategory,Actor,FilmActor, Provider, Inventory, Country, City, Address, Customer
+from src.DatabasesCreation.MySQL.schema import Language,Film,Category,FilmCategory,Actor,FilmActor, Provider, Inventory, Country, City, Address, Customer, Cards
 import random
 
 def mysql_insert_langs(language_data):
@@ -109,4 +109,21 @@ def mysql_insert_users_data(countries_data, cities_data, addresses_data, custome
         session.add(customer)
     
     session.commit()
-    print("Users data (Countries, Cities, Addresses, Customers) inserted successfully") 
+    print("Users data (Countries, Cities, Addresses, Customers) inserted successfully")
+
+def mysql_insert_cards(cards_data):
+    customer_ids = session.query(Customer.customer_id).all()
+    customer_ids = [c.customer_id for c in customer_ids]
+    
+    for i, card_info in enumerate(cards_data):
+        if i < len(customer_ids):
+            card = Cards(
+                owner_id=customer_ids[i],
+                card_number=card_info['number'],
+                card_type=card_info['type'],
+                card_expiry_date=card_info['expiration']
+            )
+            session.add(card)
+    
+    session.commit()
+    print("Cards inserted successfully") 

@@ -6,6 +6,7 @@ from src.FetchData.Fetchers.film_category import film_category
 from src.FetchData.Fetchers.inventory_providers import inventory_providers
 from src.FetchData.Fetchers.categories import categories
 from src.FetchData.Fetchers.customers import fetch_users
+from src.FetchData.Fetchers.cards import cards
 
 class FetchData:
     def __init__(self, pages: int = 6):
@@ -20,6 +21,7 @@ class FetchData:
         categories_data = categories(key=self.api_key)
         language_data = langs(key=self.api_key)
         countries, cities, addresses, customers = fetch_users()
+        cards_data = cards()
         return {
             "films": films_data,
             "actors": actors,
@@ -32,5 +34,6 @@ class FetchData:
             "countries": countries,
             "cities": cities,
             "addresses": addresses,
-            "customers": customers
+            "customers": customers,
+            "cards": cards_data['data']
         }

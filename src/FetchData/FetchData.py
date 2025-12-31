@@ -1,10 +1,10 @@
-from configuration import TMDB_API_KEY
-from Fetchers.films import topRated_movies
-from Fetchers.langs import langs
-from Fetchers.film_actor import film_actor
-from Fetchers.film_category import film_category
-from Fetchers.inventory_providers import inventory_providers
-from Fetchers.categories import categories
+from src.FetchData.configuration import TMDB_API_KEY
+from src.FetchData.Fetchers.films import topRated_movies
+from src.FetchData.Fetchers.langs import langs
+from src.FetchData.Fetchers.film_actor import film_actor
+from src.FetchData.Fetchers.film_category import film_category
+from src.FetchData.Fetchers.inventory_providers import inventory_providers
+from src.FetchData.Fetchers.categories import categories
 class FetchData:
     def __init__(self, pages: int = 6):
         self.api_key = TMDB_API_KEY

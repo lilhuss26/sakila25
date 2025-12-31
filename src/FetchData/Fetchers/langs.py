@@ -6,7 +6,7 @@ def langs(key: str):
     lang_url = f"https://api.themoviedb.org/3/configuration/languages?api_key={key}"
     langs = requests.get(url=lang_url)
     langs_data = langs.json()
-
+    print("langs_data fetched successfully")
     return {
         lang['iso_639_1']: {
             'language_iso_639_1': lang['iso_639_1'],

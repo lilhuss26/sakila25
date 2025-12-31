@@ -26,5 +26,5 @@ def film_actor(key: str, pages : int = 6):
             "film_id": movie_id,
             "character": character
         })
-
+    print("film_actor fetched successfully")
     return actor, film_actor

@@ -4,7 +4,7 @@ from sqlalchemy import (SmallInteger,Boolean, DateTime,TEXT,
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.dialects.mysql import TINYINT
 from sqlalchemy.sql import text
-from configuration import sakila25_engine
+from src.DatabasesCreation.MySQL.configuration import sakila25_engine
 
 
 Base = declarative_base()

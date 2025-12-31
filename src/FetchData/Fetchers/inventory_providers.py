@@ -38,5 +38,5 @@ def inventory_providers(key: str, pages: int = 6):
                             "country": country_code,
                             "type": provider_type
                         }
-
+    print("inventory_providers fetched successfully")
     return inventory_records, providers

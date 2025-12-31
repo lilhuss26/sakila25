@@ -14,4 +14,5 @@ def film_category(key: str, pages : int = 6):
         genre = movie_details_data["genres"][0]["id"]
         film_category[film_id] = {
             "category_id": genre}
+    print("film_category fetched successfully")
     return film_category

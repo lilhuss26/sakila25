@@ -32,4 +32,5 @@ def topRated_movies(key: str, pages: int = 6):
             "runtime": runtime,
             "adult": adult
         }
+    print("topRated_movies fetched successfully")
     return topRated_moviesData

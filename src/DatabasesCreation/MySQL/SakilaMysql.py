@@ -1,5 +1,5 @@
-from configuration import fetcher
-from Insertion import *
+from src.DatabasesCreation.MySQL.configuration import fetcher
+from src.DatabasesCreation.MySQL.Insertion import *
 
 class SakilaMysql:
     def __init__(self):
@@ -15,9 +15,15 @@ class SakilaMysql:
         categories =self.all_data["categories"]
         language = self.all_data["languages"]
 
-        mysql_insert_film(film_data=films)
-        mysql_insert_actor(actor_data=actor, film_actor_data=film_actor)
-        mysql_insert_film_category(film_category_data=film_category)
-        mysql_insert_category(category_data=categories)
+        # Insert parent tables first (no dependencies)
         mysql_insert_langs(language_data=language)
+        mysql_insert_category(category_data=categories)
+        mysql_insert_actor(actor_data=actor)
+        
+        # Insert films (depends on languages)
+        mysql_insert_film(film_data=films)
+        
+        # Insert junction tables (depend on parent tables)
+        mysql_insert_film_category(film_category_data=film_category)
+        mysql_insert_film_actor(film_actor_data=film_actor)
         return True

@@ -6,5 +6,6 @@ def categories(key: str):
     genrsURL = f"https://api.themoviedb.org/3/genre/movie/list?language=en&api_key={key}"
     genrs = requests.get(url=genrsURL)
     genrs_data = genrs.json()
+    print("genrs_data fetched successfully")
     return {genre['id']: {'category_id': genre['id'], 'name': genre['name']} for genre in genrs_data['genres'] if
             genre['id'] in genres_id}

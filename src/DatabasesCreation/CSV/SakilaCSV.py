@@ -23,4 +23,15 @@ class SakilaCSV:
         csv_inventory(inventory, self.dir)
         csv_providers(providers, self.dir)
         csv_language(language, self.dir)
+        
+        # User data
+        countries = self.all_data["countries"]
+        cities = self.all_data["cities"]
+        addresses = self.all_data["addresses"]
+        customers = self.all_data["customers"]
+        
+        # Extract provider IDs for random assignment
+        provider_ids = list(providers.keys())
+        
+        csv_users_data(countries, cities, addresses, customers, provider_ids, self.dir)
         return True

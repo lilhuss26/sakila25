@@ -5,7 +5,7 @@ from src.FetchData.Fetchers.film_actor import film_actor
 from src.FetchData.Fetchers.film_category import film_category
 from src.FetchData.Fetchers.inventory_providers import inventory_providers
 from src.FetchData.Fetchers.categories import categories
-from src.FetchData.Fetchers.users import fetch_users
+from src.FetchData.Fetchers.customers import fetch_users
 
 class FetchData:
     def __init__(self, pages: int = 6):

@@ -49,3 +49,69 @@ def csv_language(langs, dir):
     langs_df = langs_df.reset_index()
     langs_df.to_csv(f"{dir}/language.csv", index=False)
     print("language inserted successfully")
+
+import random
+
+def csv_users_data(countries, cities, addresses, customers, provider_ids, dir):
+    country_list = []
+    country_map = {} # name -> id
+    for i, (name, code) in enumerate(countries.items(), 1):
+        country_list.append({
+            'country_id': i,
+            'country': name,
+            'country_slag': code
+        })
+        country_map[name] = i
+    
+    pd.DataFrame(country_list).to_csv(f"{dir}/country.csv", index=False)
+    print("countries inserted successfully")
+
+    city_list = []
+    city_map = {}
+    for i, (city_name, country_name) in enumerate(cities, 1):
+        city_list.append({
+            'city_id': i,
+            'city': city_name,
+            'country_id': country_map[country_name]
+        })
+        city_map[(city_name, country_name)] = i
+        
+    pd.DataFrame(city_list).to_csv(f"{dir}/city.csv", index=False)
+    print("cities inserted successfully")
+
+    address_list = []
+    address_map = {}
+    for i, addr in enumerate(addresses, 1):
+        city_id = city_map[(addr['city'], addr['country'])]
+        address_list.append({
+            'address_id': i,
+            'address': addr['address'],
+            'address2': None,
+            'state': addr['state'],
+            'city_id': city_id,
+            'postal_code': addr['postal_code'],
+            'offset': addr['offset']
+        })
+        address_map[(addr['address'], addr['postal_code'])] = i
+        
+    pd.DataFrame(address_list).to_csv(f"{dir}/address.csv", index=False)
+    print("addresses inserted successfully")
+
+    customer_list = []
+    for cust in customers:
+        address_id = address_map[(cust['address'], cust['postal_code'])]
+        customer_list.append({
+            'customer_id': cust['customer_id'],
+            'first_name': cust['first_name'],
+            'last_name': cust['last_name'],
+            'email': cust['email'],
+            'address_id': address_id,
+            'active': True,
+            'create_date': cust['create_date'],
+            'provider_id': random.choice(provider_ids) if provider_ids else None,
+            'date_of_birth': cust['date_of_birth'],
+            'gender': cust['gender']
+        })
+        
+    pd.DataFrame(customer_list).to_csv(f"{dir}/customer.csv", index=False)
+    print("customers inserted successfully")

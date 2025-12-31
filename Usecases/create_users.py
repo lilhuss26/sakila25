@@ -1,4 +1,4 @@
-from src.FetchData.Fetchers.users import fetch_users
+from src.FetchData.Fetchers.customers import fetch_users
 from src.DatabasesCreation.MySQL.insertion import mysql_insert_users_data
 
 print("Starting User Data Insertion...")

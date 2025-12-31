@@ -1,5 +1,5 @@
-# from GetAPI import langs
-# print(langs())
-movies = 101
-pages = (movies // 20) + 1
-print(pages)
+import requests
+
+url = "https://random-data-api.com/api//random_"
+response = requests.get(url)
+print(response.json())

@@ -1,0 +1,16 @@
+provider_id,provider_name,country,type
+10,Amazon Video,US,rent
+257,fuboTV,US,flatrate
+9,Amazon Prime Video,US,flatrate
+1899,HBO Max,US,flatrate
+8,Netflix,US,flatrate
+2,Apple TV,US,rent
+582,Paramount+ Amazon Channel,US,flatrate
+258,Criterion Channel,US,flatrate
+361,TCM,US,flatrate
+2427,Passionflix Amazon Channel,US,flatrate
+337,Disney Plus,US,flatrate
+283,Crunchyroll,US,flatrate
+15,Hulu,US,flatrate
+1968,Crunchyroll Amazon Channel,US,flatrate
+34,MGM Plus,US,flatrate

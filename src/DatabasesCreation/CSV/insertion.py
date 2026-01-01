@@ -1,4 +1,6 @@
 import pandas as pd
+import random
+from datetime import datetime, timedelta
 
 def csv_films(films, dir):
     movie_rate_df = pd.DataFrame.from_dict(films, orient='index')
@@ -49,8 +51,6 @@ def csv_language(langs, dir):
     langs_df = langs_df.reset_index()
     langs_df.to_csv(f"{dir}/language.csv", index=False)
     print("language inserted successfully")
-
-import random
 
 def csv_users_data(countries, cities, addresses, customers, provider_ids, dir):
     country_list = []
@@ -115,3 +115,95 @@ def csv_users_data(countries, cities, addresses, customers, provider_ids, dir):
         
     pd.DataFrame(customer_list).to_csv(f"{dir}/customer.csv", index=False)
     print("customers inserted successfully")
+
+def csv_cards(cards_data, customers, dir):
+    customer_ids = [cust['customer_id'] for cust in customers]
+    card_list = []
+    customer_card_map = {}
+    
+    for i, (customer_id, card_info) in enumerate(zip(customer_ids, cards_data), 1):
+        card_list.append({
+            'card_id': i,
+            'owner_id': customer_id,
+            'card_number': card_info['number'],
+            'card_type': card_info['type'],
+            'card_expiry_date': card_info['expiration']
+        })
+        customer_card_map[customer_id] = i
+    
+    pd.DataFrame(card_list).to_csv(f"{dir}/cards.csv", index=False)
+    print("cards inserted successfully")
+    return customer_card_map
+
+def csv_subscriptions(customers, inventory_data, providers, dir):
+    provider_types = {pid: pinfo['type'] for pid, pinfo in providers.items()}
+    
+    provider_inventories = {}
+    for inv in inventory_data:
+        provider_id = inv['provider_id']
+        if provider_id not in provider_inventories:
+            provider_inventories[provider_id] = []
+        provider_inventories[provider_id].append(inv['inventory_id'])
+    
+    subscription_list = []
+    subscription_id = 1
+    
+    for cust in customers:
+        customer_id = cust['customer_id']
+        num_subscriptions = random.randint(1, 5)
+        available_providers = list(provider_inventories.keys())
+        
+        if num_subscriptions > len(available_providers):
+            num_subscriptions = len(available_providers)
+        
+        selected_providers = random.sample(available_providers, num_subscriptions)
+        
+        for provider_id in selected_providers:
+            inventory_id = random.choice(provider_inventories[provider_id])
+            provider_type = provider_types[provider_id]
+            
+            days_ago = random.randint(0, 365)
+            start_date = datetime.now() - timedelta(days=days_ago)
+            
+            if provider_type == 'rent':
+                end_date = start_date + timedelta(days=7)
+            else:
+                end_date = start_date + timedelta(days=30)
+            
+            subscription_list.append({
+                'subscription_id': subscription_id,
+                'customer_id': customer_id,
+                'inventory_id': inventory_id,
+                'type': provider_type,
+                'start_date': start_date,
+                'end_date': end_date
+            })
+            subscription_id += 1
+    
+    pd.DataFrame(subscription_list).to_csv(f"{dir}/subscription.csv", index=False)
+    print("subscriptions inserted successfully")
+    return subscription_list
+
+def csv_payments(subscriptions_list, customer_card_map, dir):
+    pricing = {
+        'rent': 3.99,
+        'flatrate': 12.99
+    }
+    
+    payment_list = []
+    
+    for i, sub in enumerate(subscriptions_list, 1):
+        card_id = customer_card_map.get(sub['customer_id'])
+        amount = pricing.get(sub['type'], 12.99)
+        
+        payment_list.append({
+            'payment_id': i,
+            'customer_id': sub['customer_id'],
+            'subscription_id': sub['subscription_id'],
+            'card_id': card_id,
+            'amount': amount,
+            'payment_date': sub['start_date']
+        })
+    
+    pd.DataFrame(payment_list).to_csv(f"{dir}/payment.csv", index=False)
+    print("payments inserted successfully")

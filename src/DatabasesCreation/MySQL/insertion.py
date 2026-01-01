@@ -1,8 +1,13 @@
 from src.DatabasesCreation.MySQL.configuration import sakila25_engine
 from sqlalchemy.orm import Session
-session = Session(sakila25_engine)
-from src.DatabasesCreation.MySQL.schema import Language,Film,Category,FilmCategory,Actor,FilmActor, Provider, Inventory, Country, City, Address, Customer, Cards
+from src.DatabasesCreation.MySQL.schema import (Language,Film,Category,FilmCategory,Actor,FilmActor,
+                                                Provider, Inventory,
+                                                Country, City, Address, Customer,
+                                                Cards, Subscription, Payment)
 import random
+from datetime import datetime, timedelta
+
+session = Session(bind=sakila25_engine)
 
 def mysql_insert_langs(language_data):
     for iso_code, lang_info in language_data.items():
@@ -126,4 +131,88 @@ def mysql_insert_cards(cards_data):
             session.add(card)
     
     session.commit()
-    print("Cards inserted successfully") 
+    print("Cards inserted successfully")
+
+def mysql_insert_subscriptions():
+    providers_query = session.query(Provider.provider_id, Provider.type).all()
+    provider_types = {p.provider_id: p.type for p in providers_query}
+    
+    inventory_query = session.query(Inventory.inventory_id, Inventory.provider_id).all()
+    provider_inventories = {}
+    for inv in inventory_query:
+        if inv.provider_id not in provider_inventories:
+            provider_inventories[inv.provider_id] = []
+        provider_inventories[inv.provider_id].append(inv.inventory_id)
+    
+    customer_card_query = session.query(Customer.customer_id, Cards.card_id).join(
+        Cards, Customer.customer_id == Cards.owner_id
+    ).all()
+    customer_cards = {c.customer_id: c.card_id for c in customer_card_query}
+    customer_ids = list(customer_cards.keys())
+    
+    for customer_id in customer_ids:
+        num_subscriptions = random.randint(1, 5)
+        available_providers = list(provider_inventories.keys())
+        
+        if num_subscriptions > len(available_providers):
+            num_subscriptions = len(available_providers)
+        
+        selected_providers = random.sample(available_providers, num_subscriptions)
+        
+        for provider_id in selected_providers:
+            inventory_id = random.choice(provider_inventories[provider_id])
+            provider_type = provider_types[provider_id]
+            
+            days_ago = random.randint(0, 365)
+            start_date = datetime.now() - timedelta(days=days_ago)
+            
+            if provider_type == 'rent':
+                end_date = start_date + timedelta(days=7)
+            else:
+                end_date = start_date + timedelta(days=30)
+            
+            subscription = Subscription(
+                customer_id=customer_id,
+                inventory_id=inventory_id,
+                type=provider_type,
+                start_date=start_date,
+                end_date=end_date
+            )
+            session.add(subscription)
+    
+    session.commit()
+    print("Subscriptions inserted successfully")
+
+def mysql_insert_payments():
+    pricing = {
+        'rent': 3.99,
+        'flatrate': 12.99
+    }
+    
+    subscriptions_query = session.query(
+        Subscription.subscription_id,
+        Subscription.customer_id,
+        Subscription.type,
+        Subscription.start_date
+    ).all()
+    
+    customer_card_query = session.query(Customer.customer_id, Cards.card_id).join(
+        Cards, Customer.customer_id == Cards.owner_id
+    ).all()
+    customer_cards = {c.customer_id: c.card_id for c in customer_card_query}
+    
+    for sub in subscriptions_query:
+        card_id = customer_cards.get(sub.customer_id)
+        amount = pricing.get(sub.type, 12.99)
+        
+        payment = Payment(
+            customer_id=sub.customer_id,
+            subscription_id=sub.subscription_id,
+            card_id=card_id,
+            amount=amount,
+            payment_date=sub.start_date
+        )
+        session.add(payment)
+    
+    session.commit()
+    print("Payments inserted successfully") 

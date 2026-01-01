@@ -18,6 +18,7 @@ class SakilaCSV:
         cities = self.all_data["cities"]
         addresses = self.all_data["addresses"]
         customers = self.all_data["customers"]
+        cards_data = self.all_data["cards"]
         provider_ids = list(providers.keys())
 
         csv_films(films, self.dir)
@@ -29,5 +30,9 @@ class SakilaCSV:
         csv_providers(providers, self.dir)
         csv_language(language, self.dir)
         csv_users_data(countries, cities, addresses, customers, provider_ids, self.dir)
-
+        
+        customer_card_map = csv_cards(cards_data, customers, self.dir)
+        subscriptions_list = csv_subscriptions(customers, inventory, providers, self.dir)
+        csv_payments(subscriptions_list, customer_card_map, self.dir)
+        
         return True

@@ -30,10 +30,13 @@ class SakilaMysql:
         mysql_insert_film_category(film_category_data=film_category)
         mysql_insert_film_actor(film_actor_data=film_actor)
 
-        mysql_insert_users_data(countries_data=countries, 
-                              cities_data=cities, 
-                              addresses_data=addresses, 
+        mysql_insert_users_data(countries_data=countries,
+                              cities_data=cities,
+                              addresses_data=addresses,
                               customers_data=customers)
         
         mysql_insert_cards(cards_data=cards_data)
+        
+        mysql_insert_subscriptions()
+        mysql_insert_payments()
         return True

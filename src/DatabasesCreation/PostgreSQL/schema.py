@@ -3,9 +3,8 @@ from sqlalchemy import (SmallInteger,Boolean, DateTime,TEXT,
                         Column, DECIMAL,VARCHAR, Integer, CHAR, ForeignKey, BigInteger, DateTime)
 from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
-from sqlalchemy.dialects.mysql import TINYINT
 from sqlalchemy.sql import text
-from src.DatabasesCreation.MySQL.configuration import sakila25_engine
+from src.DatabasesCreation.PostgreSQL.configuration import sakila25_engine
 
 
 Base = declarative_base()
@@ -44,8 +43,8 @@ class FilmCategory(Base):
     last_update = Column(DateTime, default=datetime.now, onupdate=datetime.now, nullable=False)
 
     __table_args__ = (
-        Index('idx_fk_film_id', 'film_id'),
-        Index('idx_fk_category_id', 'category_id'),
+        Index('idx_film_category_fk_film_id', 'film_id'),
+        Index('idx_film_category_fk_category_id', 'category_id'),
     )
 
 
@@ -76,8 +75,8 @@ class FilmActor(Base):
     last_update = Column(DateTime, default=datetime.now, onupdate=datetime.now, nullable=False)
 
     __table_args__ = (
-        Index('idx_fk_film_id', 'film_id'),
-        Index('idx_fk_actor_id', 'actor_id'),
+        Index('idx_film_actor_fk_film_id', 'film_id'),
+        Index('idx_film_actor_fk_actor_id', 'actor_id'),
     )
 
 class Provider(Base):
@@ -96,8 +95,8 @@ class Inventory(Base):
     last_update = Column(DateTime, default=datetime.now, onupdate=datetime.now, nullable=False)
 
     __table_args__ = (
-        Index('idx_fk_film_id', 'film_id'),
-        Index('idx_provider_id_film_id', 'provider_id', 'film_id'),
+        Index('idx_inventory_fk_film_id', 'film_id'),
+        Index('idx_inventory_provider_id_film_id', 'provider_id', 'film_id'),
     )
 
 class Country(Base):
@@ -148,9 +147,9 @@ class Customer(Base):
     gender = Column(VARCHAR(10))
 
     __table_args__ = (
-        Index('idx_fk_provider_id', 'provider_id'),
-        Index('idx_fk_address_id', 'address_id'),
-        Index('idx_last_name', 'last_name'),
+        Index('idx_customer_fk_provider_id', 'provider_id'),
+        Index('idx_customer_fk_address_id', 'address_id'),
+        Index('idx_customer_last_name', 'last_name'),
     )
 
 class Cards(Base):
@@ -177,9 +176,9 @@ class Subscription(Base):
     last_update = Column(DateTime, default=datetime.now, onupdate=datetime.now, nullable=False)
 
     __table_args__ = (
-        Index('idx_fk_inventory_id', 'inventory_id'),
-        Index('idx_fk_customer_id', 'customer_id'),
-        Index('idx_start_date', 'start_date'),
+        Index('idx_subscription_fk_inventory_id', 'inventory_id'),
+        Index('idx_subscription_fk_customer_id', 'customer_id'),
+        Index('idx_subscription_start_date', 'start_date'),
     )
 
 class Payment(Base):
@@ -193,10 +192,11 @@ class Payment(Base):
     last_update = Column(DateTime, default=datetime.now, onupdate=datetime.now, nullable=False)
 
     __table_args__ = (
-        Index('idx_fk_customer_id', 'customer_id'),
-        Index('idx_fk_subscription_id', 'subscription_id'),
-        Index('idx_fk_card_id', 'card_id'),
+        Index('idx_payment_fk_customer_id', 'customer_id'),
+        Index('idx_payment_fk_subscription_id', 'subscription_id'),
+        Index('idx_payment_fk_card_id', 'card_id'),
     )
 
 Base.metadata.create_all(sakila25_engine)
 print("Database created successfully")
+

@@ -95,6 +95,11 @@ class Inventory(Base):
     provider_id = Column(Integer, ForeignKey('provider.provider_id'))
     last_update = Column(DateTime, default=datetime.now, onupdate=datetime.now, nullable=False)
 
+    __table_args__ = (
+        Index('idx_fk_film_id', 'film_id'),
+        Index('idx_provider_id_film_id', 'provider_id', 'film_id'),
+    )
+
 class Country(Base):
     __tablename__ = 'country'
     country_id = Column(Integer, primary_key=True, autoincrement=True)
@@ -109,6 +114,10 @@ class City(Base):
     country_id = Column(Integer, ForeignKey('country.country_id'))
     last_update = Column(DateTime, default=datetime.now, onupdate=datetime.now, nullable=False)
 
+    __table_args__ = (
+        Index('idx_fk_country_id', 'country_id'),
+    )
+
 class Address(Base):
     __tablename__ = 'address'
     address_id = Column(Integer, primary_key=True, autoincrement=True)
@@ -119,6 +128,10 @@ class Address(Base):
     postal_code = Column(VARCHAR(20))
     offset = Column(VARCHAR(20))
     last_update = Column(DateTime, default=datetime.now, onupdate=datetime.now, nullable=False)
+
+    __table_args__ = (
+        Index('idx_fk_city_id', 'city_id'),
+    )
 
 class Customer(Base):
     __tablename__ = 'customer'
@@ -134,6 +147,12 @@ class Customer(Base):
     date_of_birth = Column(DateTime)
     gender = Column(VARCHAR(10))
 
+    __table_args__ = (
+        Index('idx_fk_provider_id', 'provider_id'),
+        Index('idx_fk_address_id', 'address_id'),
+        Index('idx_last_name', 'last_name'),
+    )
+
 class Cards(Base):
     __tablename__ = 'cards'
     card_id = Column(Integer, primary_key=True, autoincrement=True)
@@ -142,6 +161,10 @@ class Cards(Base):
     card_type = Column(VARCHAR(255))
     card_expiry_date = Column(CHAR(5))
     last_update = Column(DateTime, default=datetime.now, onupdate=datetime.now, nullable=False)
+
+    __table_args__ = (
+        Index('idx_fk_owner_id', 'owner_id'),
+    )
 
 class Subscription(Base):
     __tablename__ = 'subscription'
@@ -153,6 +176,12 @@ class Subscription(Base):
     end_date = Column(DateTime)
     last_update = Column(DateTime, default=datetime.now, onupdate=datetime.now, nullable=False)
 
+    __table_args__ = (
+        Index('idx_fk_inventory_id', 'inventory_id'),
+        Index('idx_fk_customer_id', 'customer_id'),
+        Index('idx_start_date', 'start_date'),
+    )
+
 class Payment(Base):
     __tablename__ = 'payment'
     payment_id = Column(Integer, primary_key=True, autoincrement=True)
@@ -162,6 +191,12 @@ class Payment(Base):
     amount = Column(DECIMAL(10, 2))
     payment_date = Column(DateTime)
     last_update = Column(DateTime, default=datetime.now, onupdate=datetime.now, nullable=False)
+
+    __table_args__ = (
+        Index('idx_fk_customer_id', 'customer_id'),
+        Index('idx_fk_subscription_id', 'subscription_id'),
+        Index('idx_fk_card_id', 'card_id'),
+    )
 
 Base.metadata.create_all(sakila25_engine)
 

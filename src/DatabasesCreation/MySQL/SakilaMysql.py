@@ -1,5 +1,6 @@
 from src.DatabasesCreation.MySQL.configuration import fetcher
 from src.DatabasesCreation.MySQL.insertion import *
+from src.DatabasesCreation.MySQL.views import create_views
 
 class SakilaMysql:
     def __init__(self):
@@ -39,4 +40,6 @@ class SakilaMysql:
         
         mysql_insert_subscriptions()
         mysql_insert_payments()
+        
+        create_views()
         return True

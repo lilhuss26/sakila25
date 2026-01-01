@@ -1,0 +1,101 @@
+address_id,address,address2,state,city_id,postal_code,offset
+1,3140 Lovers Ln,,Iowa,41,46162,+9:00
+2,5693 Rue de la Gare,,Seine-Saint-Denis,76,41199,+8:00
+3,4686 Rua São João ,,Rio Grande do Norte,73,39746,+6:00
+4,3780 Rua Carlos Gomes,,Goiás,63,25748,-1:00
+5,6296 Wycliff Ave,,Indiana,53,41972,+3:30
+6,4375 Avenue de la Libération,,Côtes-D'Armor,44,89945,-5:00
+7,5815 The Grove,,Warwickshire,14,Q2E 9ZT,+5:45
+8,6520 Samaritan Dr,,Western Australia,61,2594,+11:00
+9,8024 Kingsway,,Suffolk,65,T3 6ED,+2:00
+10,9537 Park Road,,North Yorkshire,87,DS4 1AH,+6:00
+11,1677 Grange Road,,Somerset,82,R6G 5DP,+9:30
+12,154 Balmoral St,,Alberta,78,D6W 3B4,+3:00
+13,9098 Windsor Road,,Tyne and Wear,28,J16 7DN,-3:00
+14,66 Rua Rui Barbosa ,,Maranhão,48,80223,-6:00
+15,8098 Rua São João ,,Rio Grande do Sul,7,56238,-8:00
+16,8509 Cedar St,,Manitoba,68,L0C 8N2,+3:30
+17,3359 Vimy St,,Saskatchewan,34,D2I 1Z7,+5:30
+18,898 Route de Genas,,Allier,83,21623,+8:00
+19,7234 Rua São Jorge ,,Espírito Santo,56,23420,+8:00
+20,5693 Springfield Road,,Lincolnshire,4,AU51 2AL,+9:00
+21,2781 Spring Hill Rd,,Louisiana,1,15054,+5:30
+22,923 Rua Treze de Maio ,,Mato Grosso do Sul,39,63658,+4:00
+23,9137 Avenue Goerges Clémenceau,,Ardennes,46,15826,+4:30
+24,9606 New Street,,Northamptonshire,67,KA15 2SJ,+2:00
+25,4484 Lake of Bays Road,,Prince Edward Island,62,P7L 4X5,-3:00
+26,7889 Rue de L'Abbé-Roger-Derry,,Pas-de-Calais,81,33182,+9:00
+27,9769 Park Avenue,,Shropshire,18,QK20 4YB,-7:00
+28,3077 Rua Belo Horizonte ,,Amazonas,10,72868,+5:45
+29,8128 Preston Rd,,Victoria,69,5124,-3:00
+30,3458 Main Road,,West Yorkshire,88,B45 8WN,-8:00
+31,313 Camden Ave,,South Australia,71,1301,-11:00
+32,2616 Rua Sete de Setembro ,,Minas Gerais,11,73251,-6:00
+33,5868 The Crescent,,West Glamorgan,32,D6O 1UT,+4:30
+34,6949 Paddock Way,,Western Australia,9,8307,+5:00
+35,8489 Rua Treze de Maio ,,Pernambuco,64,97997,+8:00
+36,1254 E Center St,,New Jersey,40,11174,+5:30
+37,4430 W Dallas St,,Hawaii,77,45147,+4:30
+38,6464 3rd St,,Saskatchewan,31,D0O 4H3,+5:00
+39,5896 Rua Pará ,,Espírito Santo,16,63286,-1:00
+40,6534 Rua Duque de Caxias ,,Paraíba,8,65016,0:00
+41,2002 Rua Das Flores ,,Tocantins,75,35690,+6:00
+42,6242 Kings Road,,Nottinghamshire,79,OE1 6HA,-8:00
+43,1120 Victoria Road,,Dorset,65,W2C 2JU,-3:00
+44,93 West Ave,,Yukon,80,C1D 2Y3,-6:00
+45,3781 Rue André-Gide,,Mayenne,21,73412,-2:00
+46,4976 Rua Santos Dumont ,,Amapá,54,15286,+8:00
+47,9173 Rue du Château,,Meuse,5,34637,-9:00
+48,159 E Pecan St,,Nevada,89,94796,+5:30
+49,4605 Oak St,,Ontario,62,S7W 5V4,+3:00
+50,3811 Place du 22 Novembre 1943,,Aube,3,73243,+4:30
+51,988 South Street,,Borders,22,JE94 9XL,+6:00
+52,3958 Place de L'Abbé-Basset,,Eure,24,23675,-11:00
+53,6774 Rua Pernambuco ,,Maranhão,29,10141,+5:00
+54,6449 Cherry St,,Queensland,38,2139,+5:30
+55,3503 Travessa dos Martírios,,Rondônia,12,28802,+9:30
+56,7552 Rua São Jorge ,,Rio Grande do Norte,26,82572,+5:30
+57,4416 Stanley Road,,Kent,50,DS60 8TQ,-12:00
+58,9640 Lakeview St,,Texas,86,26526,-4:00
+59,1148 School Lane,,West Midlands,30,W7N 1SX,-3:30
+60,9836 Rue Duguesclin,,Hérault,46,44669,-9:00
+61,2902 Cherry St,,Virginia,60,86572,+7:00
+62,4295 22nd Ave,,Nunavut,85,F1J 1D9,-8:00
+63,7823 Lovers Ln,,Tasmania,37,3508,+5:30
+64,8877 Rua Bela Vista ,,Paraná,72,55150,-9:00
+65,942 Rue Duguesclin,,Charente-Maritime,45,52771,-4:00
+66,2017 Hickory Creek Dr,,New South Wales,27,1293,-1:00
+67,7210 Stanley Road,,Mid Glamorgan,22,B81 3HQ,+9:30
+68,3600 Rua Um,,Mato Grosso,15,67237,-5:00
+69,7776 Main Street,,Lothian,70,G9 3US,-12:00
+70,6131 E Center St,,Northern Territory,13,2453,-8:00
+71,7143 Rua Paraíba ,,Distrito Federal,42,74642,-8:00
+72,5573 George Street,,Cleveland,20,RX7 2RQ,+3:00
+73,7447 Quai Charles-De-Gaulle,,Dordogne,44,99698,-5:00
+74,3731 Green Lane,,Fife,74,JB5 0YS,-6:00
+75,9858 Rua Santa Maria ,,Alagoas,19,19980,-4:00
+76,2343 Kings Road,,Staffordshire,57,R66 9DR,-8:00
+77,4636 Albert Road,,Tayside,30,DE6 3PB,+7:00
+78,5930 Mcclellan Rd,,Alaska,66,87897,-12:00
+79,4258 White Oak Dr,,Tasmania,37,5770,-7:00
+80,2366 Paddock Way,,Tasmania,33,687,+5:45
+81,3427 Rue des Cuirassiers,,Hautes-Pyrénées,90,61575,+5:00
+82,2377 Maple Ave,,Saskatchewan,36,C5T 7S2,+8:00
+83,9478 Lakeshore Rd,,Queensland,9,9551,-6:00
+84,4443 Dundas Rd,,Québec,35,B8J 3O6,-3:00
+85,8433 London Road,,Lincolnshire,67,D58 4AG,+3:00
+86,7880 Rue du Stade,,Marne,49,63244,-10:00
+87,9606 Rue Jean-Baldassini,,Guadeloupe,55,14879,+7:00
+88,8854 Rua Três,,Goiás,19,84581,+10:00
+89,5396 North Road,,West Midlands,2,W89 1XD,-8:00
+90,4180 Place de L'Abbé-Georges-Hénocque,,Saône-et-Loire,58,19648,+9:00
+91,8707 Adams St,,Utah,23,15302,-6:00
+92,4659 Richmond Ave,,Manitoba,84,V6Z 6R5,+4:30
+93,3367 South Street,,Gwent,6,Z14 9XF,-1:00
+94,8034 Montée du Chemin-Neuf,,Landes,43,66870,-3:30
+95,2373 Bay Ave,,Saskatchewan,52,E1O 4O4,+9:00
+96,6685 W Dallas St,,New South Wales,59,2585,+11:00
+97,4382 Avenue de l'Abbé-Roussel,,Rhône,47,56095,+7:00
+98,7170 Daisy Dr,,South Australia,17,9976,+4:30
+99,8518 Victoria Ave,,Newfoundland and Labrador,25,E0Z 7R7,+10:00
+100,1600 Rua Vinte E Um,,Paraíba,51,35397,-12:00

@@ -36,9 +36,18 @@ def csv_category(categories, dir):
     print("category inserted successfully")
 
 def csv_inventory(inventory, dir):
-    inventory_df = pd.DataFrame(inventory)
+    inventory_list = []
+    for i, inv in enumerate(inventory, 1):
+        inventory_list.append({
+            'inventory_id': i,
+            'film_id': inv['film_id'],
+            'provider_id': inv['provider_id']
+        })
+    
+    inventory_df = pd.DataFrame(inventory_list)
     inventory_df.to_csv(f"{dir}/inventory.csv", index=False)
     print("inventory inserted successfully")
+    return inventory_list
 
 def csv_providers(providers, dir):
     providers_df = pd.DataFrame.from_dict(providers, orient='index').reset_index()

@@ -1,0 +1,91 @@
+city_id,city,country_id
+1,Atlanta,1
+2,Preston,4
+3,Aubervilliers,2
+4,Cardiff,4
+5,Montpellier,2
+6,Salford,4
+7,Araucária,3
+8,Bacabal,3
+9,Mildura,5
+10,Jundiaí,3
+11,Rio Grande,3
+12,Cabo de Santo Agostinho,3
+13,Mackay,5
+14,Bath,4
+15,Coronel Fabriciano,3
+16,Angra dos Reis,3
+17,Gladstone,5
+18,Derby,4
+19,Itabira,3
+20,Londonderry,4
+21,Saint-Étienne,2
+22,Manchester,4
+23,Santa Rosa,1
+24,Lille,2
+25,Vanier,6
+26,Catanduva,3
+27,Tamworth,5
+28,York,4
+29,Porto Alegre,3
+30,Wakefield,4
+31,Springfield,6
+32,Birmingham,4
+33,Sunshine Coast,5
+34,Chipman,6
+35,Richmond,6
+36,Stratford,6
+37,Brisbane,5
+38,Coffs Harbour,5
+39,Itapecerica da Serra,3
+40,Spokane,1
+41,Sacramento,1
+42,Foz do Iguaçu,3
+43,Courbevoie,2
+44,Toulouse,2
+45,Saint-Pierre,2
+46,Villeurbanne,2
+47,Nîmes,2
+48,Chapecó,3
+49,Toulon,2
+50,Newport,4
+51,Bragança Paulista,3
+52,Aylmer,6
+53,Waterbury,1
+54,Garanhuns,3
+55,Grenoble,2
+56,Manaus,3
+57,Sunderland,4
+58,Fort-de-France,2
+59,Geraldton,5
+60,Bueblo,1
+61,Bathurst,5
+62,Alma,6
+63,Feira de Santana,3
+64,Imperatriz,3
+65,Newcastle upon Tyne,4
+66,Iowa Park,1
+67,Southampton,4
+68,South River,6
+69,Townsville,5
+70,Sheffield,4
+71,Wagga Wagga,5
+72,São Paulo,3
+73,Aracaju,3
+74,St Davids,4
+75,Itu,3
+76,Asnières-sur-Seine,2
+77,Henderson,1
+78,Charlottetown,6
+79,Peterborough,4
+80,Lasalle,6
+81,Rueil-Malmaison,2
+82,Stoke-on-Trent,4
+83,Montreuil,2
+84,Summerside,6
+85,Stirling,6
+86,South Bend,1
+87,Bristol,4
+88,Portsmouth,4
+89,Athens,1
+90,Poitiers,2

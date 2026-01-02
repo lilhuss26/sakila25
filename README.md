@@ -3,7 +3,7 @@
 This project provides sakila database but with new data for 2025 and small diiffrences, keeping the original flavour of the classic database.
 
 # Restorables
-All the databses are restorable using the files in [Sakila25]()
+All the databses are restorable using the files in [Sakila25](https://github.com/lilhuss26/sakila25/tree/main/Sakila25)
 
 <p align="left">
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" height="40" alt="PostgreSQL" />
@@ -22,7 +22,7 @@ All the databses are restorable using the files in [Sakila25]()
 Just restore the file in your GUI or terminal
 
 # New schema 
-[[sakila25 schema.png]]
+[[[sakila25 schema.png](https://github.com/lilhuss26/sakila25/blob/main/sakila25_schema.png)]]
 
 # Creating the databases
 - All the databases can be created using the scripts in [scripts]() folder

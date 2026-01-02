@@ -22,7 +22,7 @@ All the databses are restorable using the files in [Sakila25](https://github.com
 Just restore the file in your GUI or terminal
 
 # New schema 
-[[[sakila25 schema.png](https://github.com/lilhuss26/sakila25/blob/main/sakila25_schema.png)]]
+![Sakila25 Schema](https://github.com/lilhuss26/sakila25/raw/main/sakila25_schema.png)
 
 # Creating the databases
 - All the databases can be created using the scripts in [scripts]() folder

@@ -10,99 +10,70 @@ def create_views():
     with sakila25_engine.connect() as conn:
         conn.execute(DDL("DROP VIEW IF EXISTS actor_info"))
 
-        actor_info_select = select(
-            Actor.actor_id,
-            Actor.first_name,
-            Actor.last_name,
-            func.string_agg(
-                Film.title.distinct(), ', '
-            ).label('film_info')
-        ).select_from(
-            Actor.__table__.outerjoin(FilmActor, Actor.actor_id == FilmActor.actor_id)
-            .outerjoin(Film, FilmActor.film_id == Film.film_id)
-        ).group_by(
-            Actor.actor_id,
-            Actor.first_name,
-            Actor.last_name
-        )
-
-        create_actor_info = DDL(
-            f"CREATE VIEW actor_info AS {actor_info_select.compile(sakila25_engine, compile_kwargs={'literal_binds': True})}"
-        )
-        conn.execute(create_actor_info)
+        conn.execute(DDL("""
+            CREATE VIEW actor_info AS
+            SELECT 
+                a.actor_id,
+                a.first_name,
+                a.last_name,
+                STRING_AGG(f.title, ', ') WITHIN GROUP (ORDER BY f.title) AS film_info
+            FROM actor a
+            LEFT OUTER JOIN film_actor fa ON a.actor_id = fa.actor_id
+            LEFT OUTER JOIN film f ON fa.film_id = f.film_id
+            GROUP BY a.actor_id, a.first_name, a.last_name
+        """))
 
         conn.execute(DDL("DROP VIEW IF EXISTS customer_list"))
 
-        customer_list_select = select(
-            Customer.customer_id.label('ID'),
-            func.concat(Customer.first_name, ' ', Customer.last_name).label('name'),
-            Address.address,
-            Address.postal_code.label('zip_code'),
-            City.city,
-            Country.country,
-            Customer.provider_id.label('SID')
-        ).select_from(
-            Customer.__table__.outerjoin(Address, Customer.address_id == Address.address_id)
-            .outerjoin(City, Address.city_id == City.city_id)
-            .outerjoin(Country, City.country_id == Country.country_id)
-        )
-
-        create_customer_list = DDL(
-            f"CREATE VIEW customer_list AS {customer_list_select.compile(sakila25_engine, compile_kwargs={'literal_binds': True})}"
-        )
-        conn.execute(create_customer_list)
+        conn.execute(DDL("""
+            CREATE VIEW customer_list AS
+            SELECT 
+                c.customer_id AS ID,
+                CONCAT(c.first_name, ' ', c.last_name) AS name,
+                a.address,
+                a.postal_code AS zip_code,
+                ci.city,
+                co.country,
+                c.provider_id AS SID
+            FROM customer c
+            LEFT OUTER JOIN address a ON c.address_id = a.address_id
+            LEFT OUTER JOIN city ci ON a.city_id = ci.city_id
+            LEFT OUTER JOIN country co ON ci.country_id = co.country_id
+        """))
 
         conn.execute(DDL("DROP VIEW IF EXISTS film_list"))
 
-        film_list_select = select(
-            Film.film_id.label('FID'),
-            Film.title,
-            Film.description,
-            Category.name.label('category'),
-            Film.runtime.label('length'),
-            Film.rating,
-            func.string_agg(
-                func.concat(Actor.first_name, ' ', Actor.last_name).distinct(), ', '
-            ).label('actors')
-        ).select_from(
-            Film.__table__.outerjoin(FilmCategory, Film.film_id == FilmCategory.film_id)
-            .outerjoin(Category, FilmCategory.category_id == Category.category_id)
-            .outerjoin(FilmActor, Film.film_id == FilmActor.film_id)
-            .outerjoin(Actor, FilmActor.actor_id == Actor.actor_id)
-        ).group_by(
-            Film.film_id,
-            Film.title,
-            Film.description,
-            Category.name,
-            Film.runtime,
-            Film.rating
-        )
-
-        create_film_list = DDL(
-            f"CREATE VIEW film_list AS {film_list_select.compile(sakila25_engine, compile_kwargs={'literal_binds': True})}"
-        )
-        conn.execute(create_film_list)
+        conn.execute(DDL("""
+            CREATE VIEW film_list AS
+            SELECT 
+                f.film_id AS FID,
+                f.title,
+                CAST(f.description AS VARCHAR(MAX)) AS description,
+                c.name AS category,
+                f.runtime AS length,
+                f.rating,
+                STRING_AGG(CONCAT(a.first_name, ' ', a.last_name), ', ') WITHIN GROUP (ORDER BY a.last_name) AS actors
+            FROM film f
+            LEFT OUTER JOIN film_category fc ON f.film_id = fc.film_id
+            LEFT OUTER JOIN category c ON fc.category_id = c.category_id
+            LEFT OUTER JOIN film_actor fa ON f.film_id = fa.film_id
+            LEFT OUTER JOIN actor a ON fa.actor_id = a.actor_id
+            GROUP BY f.film_id, f.title, CAST(f.description AS VARCHAR(MAX)), c.name, f.runtime, f.rating
+        """))
 
         conn.execute(DDL("DROP VIEW IF EXISTS revenue_by_provider"))
 
-        revenue_by_provider_select = select(
-            Provider.provider_name.label('provider'),
-            func.sum(Payment.amount).label('total_sales')
-        ).select_from(
-            Payment.__table__.join(Subscription, Payment.subscription_id == Subscription.subscription_id)
-            .join(Inventory, Subscription.inventory_id == Inventory.inventory_id)
-            .join(Provider, Inventory.provider_id == Provider.provider_id)
-        ).group_by(
-            Provider.provider_id,
-            Provider.provider_name
-        ).order_by(
-            literal_column('total_sales').desc()
-        )
-
-        create_revenue_by_provider = DDL(
-            f"CREATE VIEW revenue_by_provider AS {revenue_by_provider_select.compile(sakila25_engine, compile_kwargs={'literal_binds': True})}"
-        )
-        conn.execute(create_revenue_by_provider)
+        conn.execute(DDL("""
+            CREATE VIEW revenue_by_provider AS
+            SELECT 
+                pr.provider_name AS provider,
+                SUM(p.amount) AS total_sales
+            FROM payment p
+            INNER JOIN subscription s ON p.subscription_id = s.subscription_id
+            INNER JOIN inventory i ON s.inventory_id = i.inventory_id
+            INNER JOIN provider pr ON i.provider_id = pr.provider_id
+            GROUP BY pr.provider_id, pr.provider_name
+        """))
 
         conn.commit()
         print("Views created successfully")

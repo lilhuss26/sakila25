@@ -1,5 +1,8 @@
-pandas
-requests
-dotenv
-sqlalchemy
-pymysql
+pandas==2.3.3
+requests==2.32.5
+python-dotenv==1.2.1
+SQLAlchemy==2.0.44
+psycopg2-binary==2.9.11
+pymysql==1.1.2
+pymssql==2.3.11
+pymongo

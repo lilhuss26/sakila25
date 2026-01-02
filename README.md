@@ -24,19 +24,21 @@ Just restore the file in your GUI or terminal
 # New schema 
 ![Sakila25 Schema](https://github.com/lilhuss26/sakila25/raw/main/sakila25_schema.png)
 
-# Creating the databases
-- All the databases can be created using the scripts in [scripts]() folder
+# Creating the databases from the python code
+- All the databases can be created using the scripts in [scripts](https://github.com/lilhuss26/sakila25/tree/main/scripts) folder
 - Ensure to create a .env file, following the .env.example file
 + TMDB API key is totaly free, you can get it from [TMDB](https://www.themoviedb.org/)
 # Project structure
 ## Fetchers
-- Every file in [fetchers]() folder is a script that fetches data from an API 
-- Main [FetchData]() call all the fetchers and provide it as one function
+- Every file in [src/FetchData](https://github.com/lilhuss26/sakila25/tree/main/src/FetchData) folder is a script that fetches data from an API 
+- Main [FetchData](https://github.com/lilhuss26/sakila25/blob/main/src/FetchData/FetchData.py) call all the fetchers and provide it as one function
 
 ## DatabasesCreation
-- Every folder in [DatabasesCreation]() folder is responsible for creating a database schema and inserting fetched data
+- Every folder in [src/DatabasesCreation](https://github.com/lilhuss26/sakila25/tree/main/src/DatabasesCreation) folder is responsible for creating a database schema and inserting fetched data
 - Main file at each folder call all the databases creation and data insertion scripts and provide it as one function
 
 ## Technology 
 - `requests` handles fetching data from APIs
 - `SQLAlchemy` handles database creation and data insertion
+## Train 
+U can create the database with sqlite, folder and files already created, use fetchers to insert the data

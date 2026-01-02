@@ -2,6 +2,7 @@ import random
 from datetime import datetime, timedelta
 
 def insert_films(films_data, actors_data, film_actors_data, film_categories_data, categories_data, languages_data, db):
+    # Build film-actor mapping
     film_actor_map = {}
     for fa in film_actors_data:
         film_id = fa['film_id']
@@ -15,29 +16,32 @@ def insert_films(films_data, actors_data, film_actors_data, film_categories_data
             'character': fa.get('character')
         })
     
+    # Build film-category mapping
     film_category_map = {}
-    for film_id, category_ids in film_categories_data.items():
-        film_category_map[film_id] = [
-            {'category_id': cat_id, 'name': categories_data.get(cat_id, {}).get('name')}
-            for cat_id in category_ids
-        ]
+    for film_id, category_info in film_categories_data.items():
+        category_id = category_info.get('category_id')
+        if category_id:
+            film_category_map[film_id] = [{
+                'category_id': category_id,
+                'name': categories_data.get(category_id, {}).get('name')
+            }]
     
+    # Create film documents
     films_documents = []
-    for film in films_data:
-        film_id = film['film_id']
-        lang_code = film.get('language_iso_639_1')
+    for film_id, film_info in films_data.items():
+        lang_code = film_info.get('language_iso_639_1')
         language_info = languages_data.get(lang_code, {})
         
         films_documents.append({
             'film_id': film_id,
-            'title': film.get('title'),
-            'rating': float(film.get('rating', 0)),
-            'description': film.get('description'),
-            'release_date': film.get('release_date'),
-            'popularity': float(film.get('popularity', 0)),
-            'revenue': film.get('revenue'),
-            'runtime': film.get('runtime'),
-            'adult': film.get('adult'),
+            'title': film_info.get('title'),
+            'rating': float(film_info.get('rating', 0)),
+            'description': film_info.get('description'),
+            'release_date': film_info.get('release_date'),
+            'popularity': float(film_info.get('popularity', 0)),
+            'revenue': film_info.get('revenue'),
+            'runtime': film_info.get('runtime'),
+            'adult': film_info.get('adult'),
             'language': {
                 'iso_639_1': lang_code,
                 'english_name': language_info.get('english_name'),
@@ -78,30 +82,23 @@ def insert_providers_with_inventory(providers_data, inventory_data, db):
 
 def insert_customers_with_all_data(countries_data, cities_data, addresses_data, customers_data, 
                                    cards_data, providers_data, inventory_data, db):
-    city_map = {}
-    for city in cities_data:
-        city_id = city['city_id']
-        country_info = next((c for c in countries_data if c['country_id'] == city['country_id']), {})
-        city_map[city_id] = {
-            'city': city.get('city'),
-            'country': country_info.get('country'),
-            'country_code': country_info.get('country_slag')
-        }
-    
+    # Build address map with embedded city and country info
     address_map = {}
-    for addr in addresses_data:
-        address_id = addr['address_id']
-        city_info = city_map.get(addr['city_id'], {})
-        address_map[address_id] = {
+    for i, addr in enumerate(addresses_data):
+        city_name = addr.get('city')
+        country_name = addr.get('country')
+        country_code = countries_data.get(country_name, '')
+        
+        address_map[i] = {
             'address': addr.get('address'),
-            'address2': addr.get('address2'),
             'state': addr.get('state'),
             'postal_code': addr.get('postal_code'),
-            'city': city_info.get('city'),
-            'country': city_info.get('country'),
-            'country_code': city_info.get('country_code')
+            'city': city_name,
+            'country': country_name,
+            'country_code': country_code
         }
     
+    # Build customer-card mapping
     customer_card_map = {}
     for i, (customer, card_info) in enumerate(zip(customers_data, cards_data), 1):
         customer_id = customer['customer_id']
@@ -122,10 +119,11 @@ def insert_customers_with_all_data(countries_data, cities_data, addresses_data, 
     provider_types = {pid: pinfo['type'] for pid, pinfo in providers_data.items()}
     pricing = {'rent': 3.99, 'flatrate': 12.99}
     
+    # Create customer documents
     customers_documents = []
-    for customer in customers_data:
+    for i, customer in enumerate(customers_data):
         customer_id = customer['customer_id']
-        address_info = address_map.get(customer['address_id'], {})
+        address_info = address_map.get(i, {})
         card_info = customer_card_map.get(customer_id, {})
         
         subscriptions = []

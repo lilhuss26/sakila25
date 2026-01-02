@@ -5,4 +5,4 @@ SQLAlchemy==2.0.44
 psycopg2-binary==2.9.11
 pymysql==1.1.2
 pymssql==2.3.11
-pymongo
+pymongo==4.15.5

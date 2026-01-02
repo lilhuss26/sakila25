@@ -18,11 +18,11 @@ A modernized version of the classic Sakila database with 2025 data, supporting m
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" height="40" alt="MongoDB" />
 </p>
 
-- MySQL
-- PostgreSQL
-- SQL Server
-- MongoDB
-- CSV files
+- [MySQL](https://github.com/lilhuss26/sakila25/tree/main/Sakila25/MySQL)
+- [PostgreSQL](https://github.com/lilhuss26/sakila25/tree/main/Sakila25/PostgreSQL)
+- [SQL Server](https://github.com/lilhuss26/sakila25/tree/main/Sakila25/SQLServer)
+- [MongoDB](https://github.com/lilhuss26/sakila25/tree/main/Sakila25/MongoDB/sakila25)
+- [CSV files](https://github.com/lilhuss26/sakila25/tree/main/Sakila25/Sakila25_csv)
 ## Pre-built Database Backups
 
 Ready-to-use database dumps are available in the `Sakila25/` folder. Simply restore them using your preferred database tool:
